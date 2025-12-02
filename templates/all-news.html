@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+{% load static %}
+
+
+
+{% comment %} --------articale-start------ {% endcomment %}
+
+
+
+{% comment %} --------articale--end----- {% endcomment %}
+
+
+
+<div class="dxb-container ">
+
+    {% include "articale.html" %}
+
+    <h2 class="border-b mb-3 text-uppercase font-weight-bold text-center">{{ slug }}</h2>
+
+
+
+</div>
+
+<!-- Featured News Slider Start -->
+
+
+{% comment %} {% include "news-slider-bottam.html" %} {% endcomment %}
+
+<!-- Featured News Slider End -->
+
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<!-- 
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+
+    aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered" role="document">
+
+        <div class="modal-content ">
+
+            <div class="container" style=padding:0px;>
+
+
+
+                <div class="row">
+
+                    <div class="col-lg-4">
+
+                        <img src="{% static 'assets/img/newsletter.png' %}" alt="" style="width:200px;">
+
+                    </div>
+
+                    <div class="col-lg-8">
+
+                        <p class="pt-3 pr-3">
+
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                                <span aria-hidden="true">&times;</span>
+
+                            </button>
+
+                        </p>
+
+                        <div class="modal-body">
+
+                            {% if form.non_field_errors %}
+
+                            <small class="text-danger">{{ form.non_field_errors.as_ul}}</small>
+
+                            {% endif %}
+
+                            <h2 class="text-center">Subscribe</h2>
+
+                            <form action="{% url 'UserSubscriber' %}" method="post">
+
+                                {% csrf_token %}
+
+                                <div class="form-group pl-4">
+
+                                    <input type="text" name="fname" class="form-control p-4" placeholder="Your Name"
+
+                                        required="required">
+
+                                </div>
+
+                                <div class="form-group  pl-4">
+
+                                    <input type="email" name="email" class="form-control p-4" placeholder="Your Email"
+
+                                        required="required">
+
+                                </div>
+
+
+
+                                <div class="text-center">
+
+                                    <input type="submit" value="Submit" class="btn btn-secondary">
+
+                                </div>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+</div> -->
+
+{% endblock %}

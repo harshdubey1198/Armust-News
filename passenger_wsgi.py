@@ -1,0 +1,1 @@
+from armustnews.wsgi import application

@@ -1,0 +1,198 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="copyright" content="Armust News. All rights reserved.">
+<meta name="distribution" content="global">
+<meta name="twitter:site" content="@armustnews">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:domain" content="armustnews.com">
+<meta property="fb:pages" content="724215654097669">
+<meta property="og:site_name" content="Armust News">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:image:type" content="image/png">
+<meta name="author" content="Official Correspondence">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="geo.region" content="AE">
+<meta name="geo.placename" content="United Arab Emirates">
+<meta name="geo.position" content="24.4667;54.3667">
+<meta name="ICBM" content="24.4667, 54.3667">
+
+  {% if indseo == 'ndetail' %}
+  <title>{{Blogdetails.post_title}}</title>
+  <meta property="og:title" content="{{Blogdetails.post_title}}" />
+  <meta property="twitter:title" content="{{Blogdetails.post_title}}" />
+  <meta name="description" content="{{Blogdetails.post_short_des }} Armust News" />
+  <meta property="og:description" content="{{Blogdetails.post_short_des }} Armust News" />
+  <meta property="twitter:description" content="{{Blogdetails.post_short_des }} Armust News" />
+  <meta name="news_keywords" content="Armust News, breaking news, {{Blogdetails.post_title}}" />
+  <meta property="og:url" content="https://www.armustnews.com{{ request.path }}" />
+  <meta property="twitter:url" content="https://www.armustnews.com{{ request.path }}" />
+  <meta property="og:image" content="https://www.armustnews.com/upload/{{Blogdetails.post_image}}" />
+  <meta name="twitter:image" content="https://www.armustnews.com/upload/{{Blogdetails.post_image}}" />
+  <link rel="canonical" href="https://www.armustnews.com{{ request.path }}" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "{{ Blogdetails.post_title }}",
+      "description": "{{ Blogdetails.post_short_des }}",
+      "image": [
+        "{% if Blogdetails.post_image %}{{ request.scheme }}://{{ request.get_host }}{{ Blogdetails.post_image.url }}{% else %}https://www.armustnews.com/static/assets/img/default-news.jpg{% endif %}"
+      ],
+      "author": {
+        "@type": "Person",
+        "name": "{{ Blogdetails.author.username }}"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Armust News",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://armustnews.com/upload/logo/Middle_East_final_logo.png"
+        }
+      },
+
+      "datePublished": "{{ Blogdetails.post_date }}",
+      "dateModified": "{{ Blogdetails.updated_at }}",
+      "mainEntityOfPage": "https://www.armustnews.com{{ request.path }}",
+      "inLanguage": "en",
+      "articleBody": "{{ Blogdetails.post_des|striptags }}"
+    }
+    </script>
+
+  {% elif indseo == 'video' %}
+  <title>{{Vnews.video_title}}</title>
+  <meta property="og:title" content="{{Vnews.video_title}}" />
+  <meta property="twitter:title" content="{{Vnews.video_title}}" />
+  <meta name="description" content="{{Vnews.video_short_des}}" />
+  <meta property="og:description" content="{{Vnews.video_short_des}}" />
+  <meta property="twitter:description" content="{{Vnews.video_short_des}}" />
+  <meta name="news_keywords" content="Armust News, breaking news, {{Vnews.video_title}}" />
+  <meta property="og:url" content="https://www.armustnews.com{{ request.path }}" />
+  <meta name="twitter:url" content="https://www.armustnews.com{{ request.path }}" />
+  <meta property="og:image" content="https://img.youtube.com/vi/{{Vnews.video_url}}/mqdefault.jpg" />
+  <meta name="twitter:image" content="https://img.youtube.com/vi/{{Vnews.video_url}}/mqdefault.jpg" />
+  <link rel="canonical" href="https://www.armustnews.com{{ request.path }}" />
+  {% else %}
+  <title>{{indseo.metatitle}}</title>
+  <meta property="og:title" content="{{indseo.metatitle}}"/>
+  <meta property="twitter:title" content="{{indseo.metatitle}}"/>
+  <meta name="description" content="{{indseo.metadescription}}"/>
+  <meta property="og:description" content="{{indseo.metadescription}}"/>
+  <meta property="twitter:description" content="{{indseo.metadescription}}"/>
+  <meta name="news_keywords" content="{{indseo.metakeyword}}"/>
+  <meta property="og:url" content="https://www.armustnews.com{{ request.path }}"/>
+  <meta name="twitter:url" content="https://www.armustnews.com/"/>
+  <meta property="og:image" content="https://armustnews.com/upload/logo/Middle_East_final_logo.png"/>
+  <meta name="twitter:image" content="https://armustnews.com/upload/logo/Middle_East_final_logo.png"/>
+  <link rel="canonical" href="https://www.armustnews.com{{ request.path }}"/>
+  {% endif %}
+
+  {% if request.user.id %}
+  <link href="{% static 'assets/dist/css/AdminLTE.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/dist/css/AdminLTE.min.css' %}" rel="stylesheet">
+  {% endif %}
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'assets/dnn/css/style.css' %}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'assets/dnn/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bellefair&family=Coda:wght@400;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'assets/dnn/fonts/stylesheet_roboto.css' %}">
+  <link rel="icon" type="image/x-icon" href="{% static 'assets/dnn/img/favicon.png' %}">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+  <script src="{% static 'assets/dnn2/index.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'assets/dnn2/index.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/dnn2/responsive.css' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond&display=swap" rel="stylesheet">
+  <link rel="icon" href="/static/assets/dnn/img/favicon.png" type="image/png">
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsMediaOrganization",
+      "name": "Armust News",
+      "url": "https://armustnews.com/",
+      "logo": "https://armustnews.com/upload/logo/Middle_East_final_logo.png",
+      "sameAs": [
+        "https://www.facebook.com/armustnews",
+        "https://x.com/armustnews",
+        "https://www.instagram.com/armustnews/ ",
+        "https://www.youtube.com/@armustnews"
+        "https://www.linkedin.com/armustnews/" 
+
+      ]
+    }
+  </script>
+
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "name": "Armust News",
+    "url": "https://www.armustnews.com/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://www.armustnews.com/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --background-color: {{ profile_setting.background_theme_light|default:'#ffffff' }};
+      --text-color: #000000;
+      --primary-color: #007bff;
+    }
+    
+    .dark-mode {
+      --background-color: {{ profile_setting.background_theme_dark|default:'#121212' }};
+      --text-color: #ffffff;
+      --primary-color: #0d6efd;
+    }
+
+    .Container_background {
+      --background-color: {{ profile_setting.container_background|default_if_none:'#fcf8e7' }};
+    }
+
+    .items_background {
+      --background-color: {{ profile_setting.items_background|default_if_none:'#ffffff' }};
+    }
+
+  </style> 
+  
+ <!-- Google Tag Manager -->
+   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+   })(window,document,'script','dataLayer','GTM-PC26LPKB');</script>
+<!-- End Google Tag Manager -->
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5922835412614482"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PC26LPKB"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <script src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+    <script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>

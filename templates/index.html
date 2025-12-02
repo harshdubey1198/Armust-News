@@ -1,0 +1,77 @@
+
+
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block body %}
+
+
+
+<div class="m-auto">
+
+    <!-- top ads (3 ads) start -->
+
+    {% include 'top_ads.html' %}
+
+    <!-- top ads end -->
+
+
+
+    <!-- top news (BREAKING NEWS, TRENDING NEWS & Events ) start -->
+
+    {% include 'topnews.html' %}
+
+    <!-- top news end -->
+
+    
+
+    
+
+    <!-- news1 (first and second category) start -->
+
+    {% include 'news1.html' %}
+
+    <!-- news1 end -->
+
+    
+
+    
+
+    <!-- reels news start -->
+
+    <!-- {% include 'reels-news.html' %} -->
+
+    <!-- reels news end -->
+
+
+
+    <!-- articls section start -->
+
+    {% include 'articale.html' %}
+
+    <!-- articls section end -->
+
+
+
+    <!-- news2 (from third category) start -->
+
+    {% include 'news2.html' %}
+
+    <!-- news2 end -->
+
+
+
+
+
+    <!--BRAND PARTNERS Start -->
+
+    {% include 'bp-logo.html' %}
+
+    <!--BRAND PARTNERS End -->
+
+
+
+</div>
+
+{% endblock %}
