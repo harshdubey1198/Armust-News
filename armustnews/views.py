@@ -6,7 +6,7 @@ from django.http import HttpResponse
 
 from django.db.models import Q
 
-from post_management.models import category,sub_category,NewsPost,VideoNews
+from post_management.models import category,sub_category,NewsPost,VideoNews,NewsRedirect
 
 from setting.models import profile_setting, CMS
 
@@ -18,7 +18,7 @@ from Seo_management.models import seo_optimization
 
 from service.models import jobApplication, CareerApplication, SubscribeUser, BrandPartner, RegForm, AdsEnquiry
 
-
+from django.core.exceptions import ObjectDoesNotExist
 
 from django.contrib.auth.models import User
 
@@ -264,142 +264,141 @@ def home(request):
 
 
 
-def newsdetails(request,slug):
-
-    counter=NewsPost.objects.get(slug=slug)
-
-    counter.viewcounter=counter.viewcounter + 1
-
-    counter.save()
-
-    seo='ndetail'
-
-    current_datetime = datetime.now()
-
-    blogdetails=NewsPost.objects.get(slug=slug, status='active')
-
-    blogdata=NewsPost.objects.filter(schedule_date__lt=current_datetime,is_active=1,status='active').order_by('-id') [:9]
-
-    mainnews=NewsPost.objects.filter(schedule_date__lt=current_datetime,is_active=1,status='active').order_by('-id') [:2]
-
-    articales=NewsPost.objects.filter(schedule_date__lt=current_datetime,articles=1,status='active').order_by('-id') [:3]
-
-    headline=NewsPost.objects.filter(schedule_date__lt=current_datetime,Head_Lines=1,status='active').order_by('-id')[:4]
-
-    trending=NewsPost.objects.filter(schedule_date__lt=current_datetime,trending=1,status='active').order_by('-id') [:8]
-
-    brknews=NewsPost.objects.filter(schedule_date__lt=current_datetime,BreakingNews=1,status='active').order_by('-id') [:8]
-
-    podcast=VideoNews.objects.filter(is_active='active').order_by('-id') [:1]
-
-    vidarticales=VideoNews.objects.filter(articles=1,is_active='active',video_type='video').order_by('order')[:2]
-
-    # --------------ad-manage-meny--------------
-
-    lfsid=ad_category.objects.get(ads_cat_slug='left-fest-square')
-
-    leftsquqre=ad.objects.filter(ads_cat_id=lfsid.id, is_active=1).order_by('-id') [:4]
-
-    
-
-    adtlid=ad_category.objects.get(ads_cat_slug='topleft-600x80')
-
-    adtopleft=ad.objects.filter(ads_cat_id=adtlid.id, is_active=1).order_by('-id') [:1]
-
-    
-
-    adtrid=ad_category.objects.get(ads_cat_slug='topright-600x80')
-
-    adtopright=ad.objects.filter(ads_cat_id=adtrid.id, is_active=1).order_by('-id') [:1]
-
-    
-
-    adtopid=ad_category.objects.get(ads_cat_slug='leaderboard')
-
-    adtop=ad.objects.filter(ads_cat_id=adtopid.id, is_active=1).order_by('-id') [:1]
-
-    
-
-    adleftid=ad_category.objects.get(ads_cat_slug='skyscraper')
-
-    adleft=ad.objects.filter(ads_cat_id=adleftid.id, is_active=1).order_by('-id') [:1]
-
-    
-
-    adrcol=ad_category.objects.get(ads_cat_slug='mrec')
-
-    adright=ad.objects.filter(ads_cat_id=adrcol.id, is_active=1).order_by('-id') [:1]
-
-    
-
-    festbg=ad_category.objects.get(ads_cat_slug='festivebg')
-
-    festive=ad.objects.filter(ads_cat_id=festbg.id, is_active=1).order_by('-id') [:1]
-
-    # festivetop
-
-    # festiveleft
-
-    # festiveright
-
-# -------------end-ad-manage-meny--------------    
-
-    # slider=NewsPost.objects.filter(id=1).order_by('id')[:5] use for filter value
-
-    Category=category.objects.filter(cat_status='active').order_by('order') [:12]
-
-    slider=NewsPost.objects.filter().order_by('-id')[:5]
-
-    latestnews=NewsPost.objects.all().order_by('-id')[:5]
-
-    data={
-
-            'indseo':seo,
-
-            'Blogdetails':blogdetails,
-
-            'BlogData':blogdata,
-
-            'mainnews':mainnews,
-
-            'Slider':slider,
-
-            'Blogcat':Category,
-
-            'latnews':latestnews,
-
-            'adtop':adtop,
-
-            'adleft':adleft,
-
-            'adright':adright,
-
-            'adtl':adtopleft,
-
-            'adtr':adtopright,
-
-            'bgad':festive,
-
-            'lfs':leftsquqre,
-
-            'Articale':articales,
-
-            'vidart':vidarticales,
-
-            'headline':headline,
-
-            'trendpost':trending,
-
-            'bnews':brknews,
-
-            'vidnews':podcast,
-
+def newsdetails(request, slug):
+    try:
+        current_datetime = datetime.now()
+
+        counter = NewsPost.objects.get(slug=slug)
+        counter.viewcounter = counter.viewcounter + 1
+        counter.save()
+
+        seo = 'ndetail'
+
+        blogdetails = NewsPost.objects.get(slug=slug, status='active')
+
+        blogdata = NewsPost.objects.filter(
+            schedule_date__lt=current_datetime,
+            is_active=1,
+            status='active'
+        ).order_by('-id')[:9]
+
+        mainnews = NewsPost.objects.filter(
+            schedule_date__lt=current_datetime,
+            is_active=1,
+            status='active'
+        ).order_by('-id')[:2]
+
+        articales = NewsPost.objects.filter(
+            schedule_date__lt=current_datetime,
+            articles=1,
+            status='active'
+        ).order_by('-id')[:3]
+
+        headline = NewsPost.objects.filter(
+            schedule_date__lt=current_datetime,
+            Head_Lines=1,
+            status='active'
+        ).order_by('-id')[:4]
+
+        trending = NewsPost.objects.filter(
+            schedule_date__lt=current_datetime,
+            trending=1,
+            status='active'
+        ).order_by('-id')[:8]
+
+        brknews = NewsPost.objects.filter(
+            schedule_date__lt=current_datetime,
+            BreakingNews=1,
+            status='active'
+        ).order_by('-id')[:8]
+
+        podcast = VideoNews.objects.filter(
+            is_active='active'
+        ).order_by('-id')[:1]
+
+        vidarticales = VideoNews.objects.filter(
+            articles=1,
+            is_active='active',
+            video_type='video'
+        ).order_by('order')[:2]
+
+        # Ad Sections
+        lfsid = ad_category.objects.get(ads_cat_slug='left-fest-square')
+        leftsquqre = ad.objects.filter(
+            ads_cat_id=lfsid.id, is_active=1
+        ).order_by('-id')[:4]
+
+        adtlid = ad_category.objects.get(ads_cat_slug='topleft-600x80')
+        adtopleft = ad.objects.filter(
+            ads_cat_id=adtlid.id, is_active=1
+        ).order_by('-id')[:1]
+
+        adtrid = ad_category.objects.get(ads_cat_slug='topright-600x80')
+        adtopright = ad.objects.filter(
+            ads_cat_id=adtrid.id, is_active=1
+        ).order_by('-id')[:1]
+
+        adtopid = ad_category.objects.get(ads_cat_slug='leaderboard')
+        adtop = ad.objects.filter(
+            ads_cat_id=adtopid.id, is_active=1
+        ).order_by('-id')[:1]
+
+        adleftid = ad_category.objects.get(ads_cat_slug='skyscraper')
+        adleft = ad.objects.filter(
+            ads_cat_id=adleftid.id, is_active=1
+        ).order_by('-id')[:1]
+
+        adrcol = ad_category.objects.get(ads_cat_slug='mrec')
+        adright = ad.objects.filter(
+            ads_cat_id=adrcol.id, is_active=1
+        ).order_by('-id')[:1]
+
+        festbg = ad_category.objects.get(ads_cat_slug='festivebg')
+        festive = ad.objects.filter(
+            ads_cat_id=festbg.id, is_active=1
+        ).order_by('-id')[:1]
+
+        Category = category.objects.filter(
+            cat_status='active'
+        ).order_by('order')[:12]
+
+        slider = NewsPost.objects.order_by('-id')[:5]
+        latestnews = NewsPost.objects.order_by('-id')[:5]
+
+        data = {
+            'indseo': seo,
+            'Blogdetails': blogdetails,
+            'BlogData': blogdata,
+            'mainnews': mainnews,
+            'Slider': slider,
+            'Blogcat': Category,
+            'latnews': latestnews,
+            'adtop': adtop,
+            'adleft': adleft,
+            'adright': adright,
+            'adtl': adtopleft,
+            'adtr': adtopright,
+            'bgad': festive,
+            'lfs': leftsquqre,
+            'Articale': articales,
+            'vidart': vidarticales,
+            'headline': headline,
+            'trendpost': trending,
+            'bnews': brknews,
+            'vidnews': podcast,
         }
 
-    return render(request,'news-details.html',data)
+        return render(request, 'news-details.html', data)
 
-    #return render(request, 'index.html')
-
+    except ObjectDoesNotExist:
+        # Check if there's a redirect for this slug
+        try:
+            news_redirect = NewsRedirect.objects.get(old_slug=slug, is_active=True)
+            # Perform a 301 permanent redirect (best for SEO)
+            return redirect('newsdetails', slug=news_redirect.redirect_slug, permanent=True)
+        except NewsRedirect.DoesNotExist:
+            # No redirect found, show 404
+            raise Http404("News post not found")
 # News-details-page--end--------
 
 # News-pdf--------

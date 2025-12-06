@@ -1,5 +1,5 @@
 from django.contrib import admin
-from post_management.models import category, sub_category, NewsPost, VideoNews, slider
+from post_management.models import category, sub_category, NewsPost, VideoNews, slider,NewsRedirect
 from django.contrib.auth.models import User
 import csv
 from django.http import HttpResponse
@@ -171,3 +171,21 @@ class slideradmin(admin.ModelAdmin):
     list_editable=('status','order',)
     cropping_fields = {'image_crop': ('sliderimage',)}
 admin.site.register(slider,slideradmin)
+
+@admin.register(NewsRedirect)
+class NewsRedirectAdmin(admin.ModelAdmin):
+    list_display = ['old_slug', 'redirect_slug', 'is_active', 'created_at']
+    list_filter = ['is_active', 'created_at']
+    search_fields = ['old_slug', 'redirect_slug', 'notes']
+    list_editable = ['is_active']
+    readonly_fields = ['created_at', 'updated_at']
+
+    fieldsets = (
+        ('Redirect Information', {
+            'fields': ('old_slug', 'redirect_slug', 'is_active')
+        }),
+        ('Additional Information', {
+            'fields': ('notes', 'created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )
