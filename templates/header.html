@@ -5,8 +5,7 @@
     <input type="checkbox" id="theme-toggle" />
     <span class="slider"></span>
     </label>
-<!-- harsh commented -->
-    <!-- top nav end -->
+
     <div class="row header " style="margin-right: 0px; margin-left: 0px;">
         
          <div class="col-lg-12 col-md-12 col-sm-12 row-content top-bar-bg">
@@ -19,7 +18,6 @@
                     </a>
                 </li>
 
-                <!-- <li><a href="{% url 'contact-us' %}" class="nav-icon"><i class="bi bi-person-fill"></i></a></li> -->
                 <li>
                     <a type="button" class="nav-icon" data-bs-toggle="modal" data-bs-target="#ModalSubscribe">
                         <i class="bi bi-bell-fill"></i>
@@ -34,28 +32,14 @@
                 {% include 'subscribe_model.html' %}
             </ul>
             
-                <ul class="top_search_section list-unstyled d-flex align-items-center mb-0">
-               
-            <!-- {% if request.session.journalist_id %}
-            <li class="mr-3">
-                <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
-            </li>
-            <li class="mr-3">
-                <a style="color: #d91c1c !important;" class="nav-link text-body"
-                    href="{% url 'logout-user' %}">Logout</a>
-            </li>
-            {% else %}
-            <li class="mr-3">
-                <a class="nav-link" href="{% url 'sign-in' %}">
-                    <button class="flash-button">ArtDomin</button>
-                </a>
-            </li>
-            {% endif %} -->
-        </ul>
+            <ul class="top_search_section list-unstyled d-flex align-items-center mb-0">
+            </ul>
         </div>
           
         </div>
+
         <div class="col-lg-4"></div>
+
         <div class="col-lg-4 col-md-12 col-sm-12 my-2 row-content d-flex align-items-center justify-content-center">
             <div class="text-center text-md-start">
                 <a href="/" class="">
@@ -70,8 +54,11 @@
                 </a>
             </div>
         </div>
+
         <div class="col-lg-4"></div>
-        <div class="col-lg-12 col-md-12 col-sm-12 row-content nav-bg">
+
+        <!-- ✅ MAIN NAVBAR (added id="mainNav") -->
+        <div id="mainNav" class="col-lg-12 col-md-12 col-sm-12 row-content nav-bg">
             <div class="nav-border ">
                 <nav class="navbar navbar-expand-lg navbar-dark py-2 py-lg-0">
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -80,20 +67,18 @@
                     
                     <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            {% for link in Blogcat %}
-                                <div class="nav-item dropdown">
-                                    <a href="/" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{{ link.cat_name }}</a>
-                                    <div class="dropdown-menu rounded-0 m-0">
-                                        {% for sublink in link.sub_category_set.all|dictsort:"subcat_status" %}
-                                            {% if sublink.subcat_status == 'active' %}
-                                                <a href="/{{ link.cat_slug }}/{{ sublink.subcat_slug }}" class="dropdown-item">
-                                                    {{ sublink.subcat_name }}
-                                                </a>
-                                            {% endif %}
-                                        {% endfor %}
+                             {% for link in Blogcat %}
+                                    <div class="nav-item dropdown">
+                                        <a href="/" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{{ link.cat_name }}</a>
+                                        <div class="dropdown-menu rounded-0 m-0">
+                                            {% for sublink in link.sub_category_set.all %}
+                                            <a href="/{{ link.cat_slug }}/{{ sublink.subcat_slug }}" class="dropdown-item">
+                                                {{ sublink.subcat_name }}
+                                            </a>
+                                            {% endfor %}
+                                        </div>
                                     </div>
-                                </div>
-                            {% endfor %}
+                             {% endfor %}
                         </div>
                     </div>
                 </nav>
@@ -123,12 +108,14 @@
     </div>
     
 </div>
-<div class="nav-border sticky-nav" id="stickyNav">
+
+<!-- ✅ STICKY NAVBAR (hidden until mainNav scrolls away) -->
+<div class="nav-border sticky-nav" id="stickyNav" style="display:none;">
     <nav class="navbar navbar-expand-lg navbar-dark py-2 py-lg-0">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3" id="navbarCollapse">
+        <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3">
             <div class="navbar-nav mr-auto py-0">
                 {% for link in Blogcat %}
                 <div class="nav-item dropdown">
@@ -146,19 +133,24 @@
         </div>
     </nav>
 </div>
-</div>
 
 
+<!-- ✅ NEW SCROLL SCRIPT -->
 <script>
+    const mainNav = document.getElementById("mainNav");
+    const stickyNav = document.getElementById("stickyNav");
+
     window.addEventListener("scroll", function () {
-        var stickyNav = document.getElementById("stickyNav");
-        if (window.pageYOffset > 100) {
-            stickyNav.style.display = "block";
+        const mainNavBottom = mainNav.getBoundingClientRect().bottom;
+
+        if (mainNavBottom <= 0) {
+            stickyNav.style.display = "block";  // Show when main nav is gone
         } else {
-            stickyNav.style.display = "none";
+            stickyNav.style.display = "none";   // Hide when main nav is visible
         }
     });
 
+    // Date Function
     const getFormattedDate = () => {
         const options = { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' };
         const today = new Date();
@@ -166,53 +158,54 @@
     };
     document.getElementById('currentDate').innerText = getFormattedDate();
 </script>
+
+
 <style>
     .theme-toggle-switch {
-    position: absolute;
-    display: inline-block;
-    width: 55px;
-    height: 28px;
-    right: 0;
-    z-index: 999;
-    top: 4px;
-}
+        position: absolute;
+        display: inline-block;
+        width: 55px;
+        height: 28px;
+        right: 0;
+        z-index: 999;
+        top: 4px;
+    }
 
-.theme-toggle-switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
+    .theme-toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
 
-.slider {
-  position: absolute;
-  cursor: pointer;
-  background-color: #158c43;
-  border-radius: 34px;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  transition: 0.4s;
-}
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      background-color: #158c43;
+      border-radius: 34px;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      transition: 0.4s;
+    }
 
-.slider:before {
-  content: "";
-  position: absolute;
-  height: 22px;
-  width: 22px;
-  left: 3px;
-  bottom: 3px;
-  background-color: white;
-  border-radius: 50%;
-  transition: 0.4s;
-}
+    .slider:before {
+      content: "";
+      position: absolute;
+      height: 22px;
+      width: 22px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      border-radius: 50%;
+      transition: 0.4s;
+    }
 
-input:checked + .slider {
-  background-color: #cc1227; /* Dark theme */
-}
+    input:checked + .slider {
+      background-color: #cc1227;
+    }
 
-input:checked + .slider:before {
-  transform: translateX(26px);
-}
-
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
 </style>

@@ -1018,6 +1018,7 @@ a.text-white:hover {
 
 .slider-container {
   display: flex;
+  justify-content: space-evenly;
   overflow-x: auto;
   gap: 15px;
   padding: 10px;
@@ -1031,7 +1032,11 @@ a.text-white:hover {
 .slider-item {
   flex: 0 0 auto;
   text-align: center;
-  width: 65px;
+  width: 80px;
+}
+.slider-item .iconToShare{
+  height:32px;
+  width:32px
 }
 
 .slider-item i {
