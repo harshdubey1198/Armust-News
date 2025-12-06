@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Page Not Found - 404</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
+    <meta charset="UTF-8">
+    <title>Server Error - 500</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+         body {
       background-color: #f8f9fa;
       font-family: 'Segoe UI', sans-serif;
       text-align: center;
@@ -41,15 +41,11 @@
     a:hover {
       background-color: #0056b3;
     }
-  </style>
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>404</h1>
-    <h2>Oops! Page not found.</h2>
-    <p>The page you're looking for doesn't exist or was moved.</p>
-   <a href="{% url 'home' %}">Go to Homepage</a>
-
-  </div>
+    <h1>500</h1>
+    <p>Oops! Something went wrong on our end. We're working on fixing it. Please try again later.</p>
+    <a href="/">Go back home</a>
 </body>
-</html> 
+</html>
