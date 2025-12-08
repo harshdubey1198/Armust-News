@@ -1,32 +1,41 @@
-
 {% load static %}
+{% load image_filters %}
+
 <div class="m-3">
   <h1 class="fw-bold text-uppercase mb-4 text-center" style="font-size:22px;">
     Global Transport News & Latest Industry Updates
   </h1>
 
-  <div class="row ">
+  <div class="row">
     <div class="col-lg-6 col-md-12 col-sm-12 mb-3 row-p-0">
-      <div class="row ">
+      <div class="row">
         <div class="d-flex justify-content-between align-items-center mb-3">
-          <!-- <h3 class="fw-bold text-uppercase m-0" style="font-size:16px;"">Global Transport News & Latest Industry Updates</h1> -->
           <a href="all-news/head-lines" class="text-btn text-decoration-none fw-semibold">View All</a>
         </div>
 
+        <!-- LEFT SIDE LIST (4 ITEMS) -->
         <div class="col-lg-6 col-md-12 col-sm-12 mb-3 row-p-0">
           <div class="slider-container-top">
             <div class="vstack gap-3">
               {% for news in headline|slice:":4" %}
-              <div class="d-flex gap-3 align-items-start text-left ">
-                <a href="/{{news.slug}}" class="flex-shrink-0">
-                  <img class="rounded" src="{{ news.post_image.url }}" alt="{{ news.post_title }}"
-                    title="{{ news.post_title }}" loading="lazy" width="120" height="80">
+              <div class="d-flex gap-3 align-items-start text-left">
+
+                <a href="/{{ news.slug }}" class="flex-shrink-0">
+                  <img class="rounded"
+                       src="{{ news.post_image.url|thumbnail_url }}"
+                       alt="{{ news.post_title }}"
+                       title="{{ news.post_title }}"
+                       loading="lazy"
+                       width="120"
+                       height="80">
                 </a>
+
                 <div class="flex-grow-1">
                   <span class="category d-block mb-1">{{ news.post_cat }}</span>
-                  <a href="/{{news.slug}}" class="text-decoration-none">
+                  <a href="/{{ news.slug }}" class="text-decoration-none">
                     <h6 class="text-btn m-0">{{ news.post_title|slice:":80"|safe }}</h6>
                   </a>
+
                   <div class="meta">
                     <span>{{ news.schedule_date|date }} | {{ news.schedule_date|time }}</span>
                     <div style="--custom-bottom: 0px; --custom-right: 0px;">
@@ -34,23 +43,33 @@
                     </div>
                   </div>
                 </div>
+
               </div>
               {% endfor %}
             </div>
           </div>
         </div>
 
+        <!-- LEFT SIDE BIG IMAGE -->
         <div class="col-lg-6 col-md-12 col-sm-12 mb-3 row-p-0">
           {% for post in headline|slice:"4:5" %}
           <div class="p-0 items_background d-flex flex-column">
+
             <a href="/{{ post.slug }}">
-              <img src="../upload/{{ post.post_image }}" alt="{{ post.post_title }}" class="img-fluid rounded mb-3" title="{{ post.post_title|truncatechars:35 }}"/>
+              <img src="{{ post.post_image.url|thumbnail_url }}"
+                   alt="{{ post.post_title }}"
+                   class="img-fluid rounded mb-3"
+                   title="{{ post.post_title|truncatechars:35 }}">
             </a>
+
             <div class="text-left">
               <span class="category d-block mb-1">{{ post.post_cat }}</span>
-              <a href="/{{post.slug}}" class="text-decoration-none">
-                <h3 class="text-btn m-0 unset" style="font-size:16px; font-weight: 500;">{{ post.post_title|slice:":80"|safe }}</h3>
+              <a href="/{{ post.slug }}" class="text-decoration-none">
+                <h3 class="text-btn m-0 unset" style="font-size:16px; font-weight:500;">
+                  {{ post.post_title|slice:":80"|safe }}
+                </h3>
               </a>
+
               <div class="meta">
                 <span>{{ post.schedule_date|date }} | {{ post.schedule_date|time }}</span>
                 <div style="--custom-bottom: 0px; --custom-right: 0px;">
@@ -58,98 +77,71 @@
                 </div>
               </div>
             </div>
+
           </div>
           {% endfor %}
 
+          <!-- LEFT SIDE SMALL HORIZONTAL CARD -->
           {% for post in headline|slice:"5:6" %}
           <div class="items_background d-flex border-bottom my-3 p-2">
-            <a style="display: flex;" href="/{{ post.slug }}">
-              <img style="object-fit: contain !important;" src="../upload/{{ post.post_image }}" title="{{ post.post_title|truncatechars:30 }}" alt="{{ post.post_title|truncatechars:30 }}"  />
+
+            <a style="display:flex;" href="/{{ post.slug }}">
+              <img style="object-fit:contain!important;"
+                   src="{{ post.post_image.url|thumbnail_url }}"
+                   alt="{{ post.post_title|truncatechars:30 }}">
             </a>
+
             <div class="text-left col-9">
               <span class="category d-block mb-1">{{ post.post_cat }}</span>
-              <a href="/{{news.slug}}" class="text-decoration-none">
-                <h3 class="text-btn m-0 unset" style="font-size:14px; font-weight: 500;">{{ post.post_title|slice:":80"|safe }}</h3>
+              <a href="/{{ post.slug }}" class="text-decoration-none">
+                <h3 class="text-btn m-0 unset" style="font-size:14px; font-weight:500;">
+                  {{ post.post_title|slice:":80"|safe }}
+                </h3>
               </a>
+
               <div class="meta">
                 <span>{{ post.schedule_date|date }} | {{ post.schedule_date|time }}</span>
                 <div style="--custom-bottom: 0px; --custom-right: 0px;">
                   {% include 'share.html' with posts=post %}
                 </div>
               </div>
+
             </div>
           </div>
           {% endfor %}
         </div>
+
       </div>
     </div>
 
-
+    <!-- RIGHT SIDE VIDEO SECTION -->
     <div class="col-lg-6 col-md-12 col-sm-12 mb-3 row-p-0">
-      <div class="d-flex justify-content-between align-items-center mb-3">
-          <!-- <h3 class="fw-bold text-uppercase m-0" style="font-size:14px;">Top Headlines Across Aviation, Rail, Marine, Mobility & More</h3> -->
-          <!-- <a href="all-news/head-lines" class="text-btn text-decoration-none fw-semibold">View All</a> -->
-        </div>
-        
-      <div class="ratio ratio-16x9" >
-    <video autoplay loop muted="false" id="promoVideo">
-      <source src="../upload/ads/armust-video1.mp4">
-    </video>
 
-<div><button onclick="playWithSound()" style="
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 150px;
-    padding: 10px;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    z-index: 2;
-    font-size:16px;
-  ">
-    🔊 Play Sound
-  </button></div>
-<!-- Play with sound button -->
+      <div class="d-flex justify-content-between align-items-center mb-3"></div>
 
+      <div class="ratio ratio-16x9">
+        <video autoplay loop muted id="promoVideo">
+          <source src="../upload/ads/armust-video1.mp4">
+        </video>
 
-  </div>
-  
-     
-      <!-- <div class="slider-container-top">
-        <div class=" main-swiper">
-          <div class="swiper-wrapper">
-            {% for CatVid in videos %}
-            <div class="swiper-slide">
-              <a href="/video/{{CatVid.slug}}">
-                <img src="https://img.youtube.com/vi/{{CatVid.video_url}}/hqdefault.jpg" alt="{{CatVid.video_title}}"
-                  title="{{CatVid.video_title}}" loading="lazy" width="709" height="363" />
-              </a>
-              <div class="dxv-overlay">
-                <span class="category">{{ CatVid.News_Category }}</span>
-                <a href="/video/{{CatVid.slug}}">
-                  <h2 class="text-btn">{{ CatVid.video_title }}</h2>
-                </a>
-              </div>
-            </div>
-            {% endfor %}
-          </div>
-          <div class="swiper-button-next"></div>
-          <div class="swiper-button-prev"></div>
-        </div>
-
-        <div class="swiper thumb-swiper">
-          <div class="swiper-wrapper">
-            {% for CatVid in videos %}
-            <div class="swiper-slide">
-              <img src="https://img.youtube.com/vi/{{CatVid.video_url}}/hqdefault.jpg" alt="{{CatVid.video_title}}"
-                title="{{CatVid.video_title}}" loading="lazy">
-            </div>
-            {% endfor %}
-          </div>
-        </div>
-      </div> -->
+        <button onclick="playWithSound()"
+                style="
+                  position:absolute;
+                  top:10px;
+                  right:10px;
+                  width:150px;
+                  padding:10px;
+                  background-color:rgba(0,0,0,0.7);
+                  color:white;
+                  border:none;
+                  border-radius:5px;
+                  cursor:pointer;
+                  z-index:2;
+                  font-size:16px;">
+          🔊 Play Sound
+        </button>
+      </div>
     </div>
+
   </div>
+</div>
