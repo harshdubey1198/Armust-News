@@ -1,4 +1,5 @@
 {% load static %}
+{% load image_filters %}
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 <div class="m-3">
@@ -13,7 +14,7 @@
         <div class="article-slider-main" id="articleSliderMain">
           {% for article in Articale|slice:":4" %}
           <div class="article-slide-item">
-            <img src="{{ article.post_image.url }}" alt="{{ article.post_title }}" title="{{ article.post_title }}"
+            <img src="{{ article.post_image.url|thumbnail_url }}" alt="{{ article.post_title }}" title="{{ article.post_title }}"
               loading="lazy">
             <div class="article-content">
               <a class="article-tag"
@@ -33,7 +34,7 @@
         <div class="article-slider-thumbs mt-3">
           {% for article in Articale|slice:":4" %}
           <div class="article-thumb-item" onclick="goToArticleSlide({{ forloop.counter0 }})">
-            <img src="{{ article.post_image.url }}" alt="{{ article.post_title }}" title="{{ article.post_title }}"
+            <img src="{{ article.post_image.url|thumbnail_url}}" alt="{{ article.post_title }}" title="{{ article.post_title }}"
               loading="lazy">
           </div>
           {% endfor %}
@@ -47,7 +48,7 @@
             <div class="article-card">
               <div class="image-section">
                 <a href="/{{ article.slug }}">
-                  <img src="{{ article.post_image.url }}" alt="{{ article.post_title }}" title="{{ article.post_title }}"
+                  <img src="{{ article.post_image.url|thumbnail_url}}" alt="{{ article.post_title }}" title="{{ article.post_title }}"
                      class="article-image" />
                 </a>
                 <div class="content-section items_background">
@@ -74,7 +75,7 @@
             <div class="article-card">
               <div class="image-section">
                 <a href="/{{ article.slug }}">
-                  <img src="{{ article.post_image.url }}" alt="{{ article.post_title }}" title="{{ article.post_title }}"
+                  <img src="{{ article.post_image.url|thumbnail_url}}" alt="{{ article.post_title }}" title="{{ article.post_title }}"
                     loading="lazy" class="article-image" />
                 </a>
                 <div class="content-section items_background">
@@ -106,7 +107,7 @@
       <div class="article-card">
         <div class="image-section">
           <a href="/{{ article.slug }}">
-            <img src="{{ article.post_image.url }}" alt="{{ article.post_title }}" title="{{ article.post_title }}"
+            <img src="{{ article.post_image.url|thumbnail_url}}" alt="{{ article.post_title }}" title="{{ article.post_title }}"
               loading="lazy" class="article-image" />
           </a>
           <div class="content-section items_background">

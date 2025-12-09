@@ -1,4 +1,5 @@
 {% load static %}
+{% load image_filters %}
 
 <div class="row m-2">
   <h2 class="fw-bold text-uppercase mb-4 text-center" style="font-size:22px;">
@@ -36,7 +37,7 @@
                 <div class="news-card items_background large">
                   {% for post in subcategories_data.posts|slice:":1" %}
                   <a href="/{{ post.slug }}">
-                    <img src="../upload/{{ post.post_image }}" alt="{{ post.post_title|truncatechars:35 }}" title="{{ post.post_title|truncatechars:35 }}"/>
+                    <img src="{{ post.post_image.url|thumbnail_url }}" alt="{{ post.post_title|truncatechars:35 }}" title="{{ post.post_title|truncatechars:35 }}"/>
                   </a>
                   <div class="news-content">
                     <h3>
@@ -67,7 +68,7 @@
                     {% for post in subcategories_data.posts|slice:"1:5" %}
                     <div class="items_background d-flex border-bottom my-3 p-2">
                       <a style="display: flex;" href="/{{ post.slug }}">
-                        <img style="object-fit: contain !important;" src="../upload/{{ post.post_image }}" alt="{{ post.post_title|truncatechars:30 }}" title="{{ post.post_title|truncatechars:30 }}" />
+                        <img style="object-fit: contain !important;" src="{{ post.post_image.url|thumbnail_url }}" alt="{{ post.post_title|truncatechars:30 }}" title="{{ post.post_title|truncatechars:30 }}" />
                       </a>
                       <div class="text-left col-9">
                         <h6 class="mb-1">
@@ -91,7 +92,7 @@
                   {% for post in subcategories_data.posts|slice:"5:6" %}
                   <div class="p-0 items_background d-flex flex-column">
                     <a href="/{{ post.slug }}">
-                      <img src="../upload/{{ post.post_image }}" class="img-fluid rounded mb-3" title="{{ post.post_title|truncatechars:30 }}" alt="{{ post.post_title|truncatechars:30 }}"/>
+                      <img src="{{ post.post_image.url|thumbnail_url }}" class="img-fluid rounded mb-3" title="{{ post.post_title|truncatechars:30 }}" alt="{{ post.post_title|truncatechars:30 }}"/>
                     </a>
                     <div class="text-left">
                       <h6 class="my-2">
@@ -112,7 +113,7 @@
                   {% for post in subcategories_data.posts|slice:"6:7" %}
                   <div class="items_background d-flex border-bottom my-3 p-2">
                     <a style="display: flex;" href="/{{ post.slug }}">
-                      <img style="object-fit: contain !important;" src="../upload/{{ post.post_image }}" title="{{ post.post_title|truncatechars:30 }}" alt="{{ post.post_title|truncatechars:30 }}" />
+                      <img style="object-fit: contain !important;" src="{{ post.post_image.url|thumbnail_url }}" title="{{ post.post_title|truncatechars:30 }}" alt="{{ post.post_title|truncatechars:30 }}" />
                     </a>
                     <div class="text-left col-9">
                       <h6 class="mb-1">

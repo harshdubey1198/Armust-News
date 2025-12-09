@@ -1,3 +1,5 @@
+{% load image_filters %}
+
 <div class="d-lg-block sticky-sidebar">
   <div>
     <div class="custom-tabs">
@@ -11,7 +13,7 @@
         {% for news in LatestNews %}
         <div class="items_background d-flex border-bottom my-3 p-2">
           <a style="display: flex;" href="/{{ news.slug }}">
-            <img style="object-fit: contain !important;" title="{{ news.post_title|truncatechars:35 }}" alt="{{ news.post_title|truncatechars:35 }}" src="../upload/{{ news.post_image }}" />
+            <img style="object-fit: contain !important;" title="{{ news.post_title|truncatechars:35 }}" alt="{{ news.post_title|truncatechars:35 }}" src="../upload/{{ news.post_image|thumbnail_url }}" />
           </a>
           <div class="text-left col-9">
             <h6 class="mb-1">
@@ -37,7 +39,7 @@
         {% for news in trendpost %}
         <div class="items_background d-flex border-bottom my-3 p-2">
           <a style="display: flex;" href="/{{ news.slug }}">
-            <img style="object-fit: contain !important;" src="../upload/{{ news.post_image }}" title="{{ news.post_title|truncatechars:35 }}" alt="{{ news.post_title|truncatechars:35 }}"/>
+            <img style="object-fit: contain !important;" src="../upload/{{ news.post_image|thumbnail_url }}" title="{{ news.post_title|truncatechars:35 }}" alt="{{ news.post_title|truncatechars:35 }}"/>
           </a>
           <div class="text-left col-9">
             <h6 class="mb-1">
