@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block body %}
+{% load image_filters %}
 
 <div class="dxb-container">
   <div class="row">
@@ -74,7 +75,7 @@
         <div class="col-lg-4">
           <div class="position-relative">
             <a href="/{{ Blog.slug }}">
-              <img class="img-fluid w-100 sliderimg" src="{{ Blog.post_image.url }}" alt="{{ Blog.post_title }}"
+              <img class="img-fluid w-100 sliderimg" src="{{ Blog.post_image.url|thumbnail_url }}" alt="{{ Blog.post_title }}"
                 title="{{ Blog.post_title }}" loading="lazy">
             </a>
 
