@@ -25,7 +25,7 @@ body {
   font-weight: normal;
   color: var(--text-color) !important;
 }
-h1, h2, h3 {
+h2, h3 {
   font-family: 'ITC-Avant-Garde-Gothic-Bold', sans-serif !important;
 }
 .h2-copy{

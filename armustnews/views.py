@@ -1544,6 +1544,8 @@ def catdetails(request,catlink,slug):
     slider=NewsPost.objects.filter().order_by('-id')[:5]
 
     latestnews=NewsPost.objects.all().order_by('-id')[:5]
+    category_name = catlink.replace("-", " ").title()
+    subcategory_name = slug.replace("-", " ").title()
 
     data={ 
 
@@ -1588,6 +1590,10 @@ def catdetails(request,catlink,slug):
             'adtr':adtopright,
 
             'bgad':festive,
+            
+            'category_name': category_name,
+
+            'subcategory_name': subcategory_name,
 
         }
 
