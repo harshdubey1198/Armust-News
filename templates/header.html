@@ -66,7 +66,7 @@
                     </button>
                     
                     <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3" id="navbarCollapse">
-                        <div class="navbar-nav mr-auto py-0">
+                        <div class="navbar-nav mr-auto py-0 nav-grid">
                              {% for link in Blogcat %}
                                     <div class="nav-item dropdown">
                                         <a href="/" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{{ link.cat_name }}</a>
@@ -116,7 +116,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3">
-            <div class="navbar-nav mr-auto py-0">
+            <div class="navbar-nav mr-auto py-0 nav-grid">
                 {% for link in Blogcat %}
                 <div class="nav-item dropdown">
                     <a href="/" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{{ link.cat_name }}</a>
@@ -208,4 +208,30 @@
     input:checked + .slider:before {
       transform: translateX(26px);
     }
+    .nav-grid {
+    display: flex;
+    flex-wrap: wrap !important;
+    gap: 5px 18px; /* row-gap, column-gap */
+    align-items: center;
+}
+
+/* Ensure each nav item gets proper width instead of shrinking */
+.nav-grid .nav-item {
+    flex: 0 0 auto;
+}
+
+/* Fix dropdown positioning when wrapping */
+.nav-grid .dropdown-menu {
+    position: absolute;
+    white-space: normal !important;
+}
+
+/* Prevent navbar from collapsing weirdly on mobile */
+@media (max-width: 768px) {
+    .nav-grid {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+}
 </style>

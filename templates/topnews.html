@@ -123,24 +123,54 @@
           <source src="../upload/ads/armust-video1.mp4">
         </video>
 
-        <button onclick="playWithSound()"
-                style="
-                  position:absolute;
-                  top:10px;
-                  right:10px;
-                  width:150px;
-                  padding:10px;
-                  background-color:rgba(0,0,0,0.7);
-                  color:white;
-                  border:none;
-                  border-radius:5px;
-                  cursor:pointer;
-                  z-index:2;
-                  font-size:16px;">
-          🔊 Play Sound
-        </button>
+      <button id="soundBtn"
+            onclick="toggleSound()"
+            style="
+              position:absolute;
+              top:10px;
+              right:10px;
+              width:150px;
+              padding:10px;
+              background-color:rgba(0,0,0,0.7);
+              color:white;
+              border:none;
+              border-radius:5px;
+              cursor:pointer;
+              z-index:2;
+              font-size:16px;">
+              🔊 Play Sound
+            </button>
+
       </div>
     </div>
 
   </div>
 </div>
+<script>
+function toggleSound() {
+    const video = document.getElementById("promoVideo");
+    const btn = document.getElementById("soundBtn");
+
+    // If video is muted → Unmute + play
+    if (video.muted) {
+        video.muted = false;
+        video.play();
+        btn.textContent = "🔇 Mute Sound";
+        return;
+    }
+
+    // If video is unmuted → Mute sound
+    if (!video.muted && !video.paused) {
+        video.muted = true;
+        btn.textContent = "🔊 Play Sound";
+        return;
+    }
+
+    // If video somehow becomes paused → Play with sound
+    if (video.paused) {
+        video.muted = false;
+        video.play();
+        btn.textContent = "🔇 Mute Sound";
+    }
+}
+</script>
